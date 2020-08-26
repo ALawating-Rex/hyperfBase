@@ -15,6 +15,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Phper666\JWTAuth\JWT;
+use Phper666\JWTAuth\Util\JWTUtil;
 
 class AuthSimpleMiddleware implements MiddlewareInterface
 {
@@ -32,17 +34,55 @@ class AuthSimpleMiddleware implements MiddlewareInterface
      * @var HttpResponse
      */
     protected $response;
+    /**
+     * @var JWT
+     */
+    protected $jwt;
 
-    public function __construct(ContainerInterface $container, HttpResponse $response, RequestInterface $request)
+    public function __construct(ContainerInterface $container, HttpResponse $response, RequestInterface $request, JWT $jwt)
     {
         $this->container = $container;
         $this->response = $response;
         $this->request = $request;
+        $this->jwt = $jwt;
     }
 
     public function jwtAuth(): array
     {
-        // TODO
+        $appEnv = config('constants.APP_ENV');
+        $appDebug = config('constants.APP_DEBUG');
+        $token = $this->request->getHeader('Authorization')[0] ?? '';
+
+        $isValidToken = false;
+        if(empty($token) && $appEnv != 'prod' && $appDebug == 2){
+            $hbUser = [
+                'id' => 1,
+                'name' => '测试用户1',
+                'username' => 'testuser1',
+                'role' => 10,
+            ];
+
+            return $hbUser;
+        }else{
+            try {
+                if ($this->jwt->checkToken()) {
+                    $jwtData = $this->jwt->getParserData();
+                    if(isset($jwtData['hb_user']) && !empty($jwtData['hb_user'])){
+                        $isValidToken = true;
+                        $hbUser =  json_decode(json_encode($jwtData['hb_user']),true);
+                    }
+                }
+            } catch(\Exception $e) {
+                Log::debug('jwt verify error :'.$e->getMessage());
+                return [];
+            }
+        }
+
+        if($isValidToken){
+            return $hbUser;
+        }else{
+            return [];
+        }
     }
 
     public function headerAuth(): array

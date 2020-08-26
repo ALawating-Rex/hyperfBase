@@ -1,6 +1,17 @@
 ## About hyperfBase
 
-基于 Hyperf 搭建的基础通用框架
+基于 Hyperf 搭建的基础通用框架，包含了必要的鉴权中间件，写好了用户业务逻辑以供参考。
+
+### MiddleWare 说明
+- requestMiddleware 全局中间件，记录请求相关的参数到 log
+- AuthMiddleware 鉴权中间件，必须登录才允许通过，配置环境变量 AUTH_METHOD 来应用不同的鉴权方式。 （具体说明参考： config/autoload/constants.php 的注释）
+验证通过会在 request 中添加 attribute ： hb_user ， controller里获取登录用户信息代码： `$user = $request->getAttribute('hb_user');`
+- AuthSimpleMiddleware 鉴权中间件，基本和 AuthMiddleware 逻辑一致，不同点在于即使认证不通过不影响执行，只不过是 $request->getAttribute('hb_user'); 为空数组
+- JwtAuthMiddleware 单独提出来 jwt 认证， 你可以添加修改自己的逻辑
+
+### Util 说明
+- Log 更简单的记录 log 
+- Response 格式化输出，并且做了 log记录
 
 ## 安装步骤
 
@@ -68,7 +79,7 @@ public function categoryList(RequestInterface $request, ResponseInterface $respo
 
 ### request 说明
 ```
-request 中包含参数(通过 $request->getAttribute(keey) 获取)：
+request 中包含参数(通过 $request->getAttribute(key) 获取)：
 hb_request_id - 表示每个请求的id 
 hb_user - 表示发请求的用户的信息 
     [
@@ -87,8 +98,8 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 3. 每个 controller 应当按照模板书写，需要的变量提前初始化
 4. 每个model 里如果有类似 status 、 type 这类字段 必须写明 1代表什么 2代表什么 。写到 model 注释里和database comment里
 
-## TODO 
--[ ] 基于docker 安装 hyperf 的步骤
--[ ] 创建 initSeed - 初始化用户数据
--[ ] 完善单元测试，用户登录以及后续操作
+## TODO List
+- 基于docker 安装 hyperf 的步骤
+- 创建 initSeed - 初始化用户数据
+- 完善单元测试，用户登录以及后续操作
 
