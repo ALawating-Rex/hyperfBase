@@ -1,12 +1,13 @@
 ## About hyperfBase
 
-基于 Hyperf 搭建的基础通用框架，包含了必要的鉴权中间件，写好了用户业务逻辑以供参考。
+基于 Hyperf 搭建的基础通用框架，包含了必要的认证中间件，写好了用户业务逻辑以供参考。
+通过应用 hyperfBase 希望开发者不需要再去考虑特殊处理，而能专注业务，快速敏捷的开发。
 
 ### MiddleWare 说明
 - requestMiddleware 全局中间件，记录请求相关的参数到 log
-- AuthMiddleware 鉴权中间件，必须登录才允许通过，配置环境变量 AUTH_METHOD 来应用不同的鉴权方式。 （具体说明参考： config/autoload/constants.php 的注释）
+- AuthMiddleware 认证中间件，必须登录才允许通过，配置环境变量 AUTH_METHOD 来应用不同的认证方式。 （具体说明参考： config/autoload/constants.php 的注释）
 验证通过会在 request 中添加 attribute ： hb_user ， controller里获取登录用户信息代码： `$user = $request->getAttribute('hb_user');`
-- AuthSimpleMiddleware 鉴权中间件，基本和 AuthMiddleware 逻辑一致，不同点在于即使认证不通过不影响执行，只不过是 $request->getAttribute('hb_user'); 为空数组
+- AuthSimpleMiddleware 认证中间件，基本和 AuthMiddleware 逻辑一致，不同点在于即使认证不通过不影响执行，只不过是 $request->getAttribute('hb_user'); 为空数组
 - JwtAuthMiddleware 单独提出来 jwt 认证， 你可以添加修改自己的逻辑
 
 ### Util 说明
@@ -101,4 +102,17 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 ## TODO List
 - 基于docker 安装 hyperf 的步骤
 - 完善单元测试，用户登录以及后续操作
+- 权限中间件
+
+## 接口
+创建完数据库会初始化用户数据： 
+username: admin
+password: aex.hyperfBase
+
+curl 举例：
+`curl --location --request POST 'http://127.0.0.1:9501/api/user/login' \
+ --header 'Content-Type: application/x-www-form-urlencoded' \
+ --data-urlencode 'username=admin' \
+ --data-urlencode 'password=aex.hyperfBase'`
+
 
