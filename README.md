@@ -5,14 +5,16 @@
 ## 安装步骤
 
 1. composer install
-2. cp .env.example .env 
-3. php bin/hyperf.php migrate
+2. cp .env.example .env
+3. 根据实际修改 .env 配置的mysql 和 redis地址 
+4. php bin/hyperf.php migrate
 
 ## 生产环境更新步骤
 
 // 如果有新包 - composer require xxx 不建议 composer update
-1. cp .env.example .env 
-2. php bin/hyperf.php migrate
+1. cp .env.example .env
+2. 根据实际修改 .env 配置的mysql 和 redis地址 
+3. php bin/hyperf.php migrate
 
 
 ## 说明
@@ -86,7 +88,7 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 4. 每个model 里如果有类似 status 、 type 这类字段 必须写明 1代表什么 2代表什么 。写到 model 注释里和database comment里
 
 ## TODO 
-+[ ] 基于docker 安装 hyperf 的步骤
-+[ ] 创建 initSeed - 初始化用户数据
-+[ ] 完善单元测试，用户登录以及后续操作
+-[ ] 基于docker 安装 hyperf 的步骤
+-[ ] 创建 initSeed - 初始化用户数据
+-[ ] 完善单元测试，用户登录以及后续操作
 
