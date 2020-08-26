@@ -100,6 +100,5 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 
 ## TODO List
 - 基于docker 安装 hyperf 的步骤
-- 创建 initSeed - 初始化用户数据
 - 完善单元测试，用户登录以及后续操作
 

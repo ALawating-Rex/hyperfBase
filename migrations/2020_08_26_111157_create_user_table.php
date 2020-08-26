@@ -1,8 +1,10 @@
 <?php
 
+use App\Util\Account;
 use Hyperf\Database\Schema\Schema;
 use Hyperf\Database\Schema\Blueprint;
 use Hyperf\Database\Migrations\Migration;
+use Hyperf\DbConnection\Db;
 
 class CreateUserTable extends Migration
 {
@@ -21,6 +23,11 @@ class CreateUserTable extends Migration
             $table->integer('role')->default(1)->comment('角色');
             $table->timestamps();
         });
+        $password = 'aex.hyperfBase';
+        $password_hash = Account::makePassword($password);
+        DB::table('user')->insert([
+            ['id' => 1, 'name' => 'admin', 'username' => 'admin', 'phone' => '12345678900', 'password' => $password_hash, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+        ]);
     }
 
     /**
