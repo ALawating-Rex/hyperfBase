@@ -61,7 +61,7 @@ class JwtAuthMiddleware implements MiddlewareInterface
         $isValidToken = false;
         if(empty($token) && $appEnv != 'prod' && $appDebug == 2){
             $hbUser = [
-                'id' => 1,
+                'uid' => 1,
                 'name' => '测试用户1',
                 'username' => 'testuser1',
                 'role' => 10,
