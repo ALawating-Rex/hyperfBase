@@ -2,10 +2,10 @@
 
 ## 安装
 
-1. 首先拉取 docker 镜像
+1. 首先拉取 docker 镜像  
 `docker pull hyperf/hyperf`
 
-2. 启动容器
+2. 启动容器  
 `docker run -dit --name hyperf1 -v /var/www/html/hyperf_study:/hyperf-skeleton -p 9501:9501 -p 9502:9502 -p 9503:9503 -p 9504:9504 --entrypoint /bin/sh --link mysql1:mysql --link redis1:redis hyperf/hyperf`
 
 ### 注意:
@@ -15,22 +15,22 @@
 
 3. 进入容器  
 `docker exec -it hyperf1 /bin/bash`
-4. 安装composer 安装 hyperf 并启动
-`wget https://github.com/composer/composer/releases/download/1.9.0/composer.phar`
-// 修改为可执行
-`chmod u+x composer.phar`
-// 复制到/usr/local/bin/ 这样就可以直接运行composer 命令
-`mv composer.phar /usr/local/bin/composer`
-// 修改仓库地址为阿里云
-`composer config -g repo.packagist composer https://mirrors.aliyun.com/composer`
-// 通过 Composer 安装 hyperf/hyperf-skeleton 项目
-`composer create-project hyperf/hyperf-skeleton`
-// 进入安装好的 Hyperf 项目目录
-`cd hyperf-skeleton`
-// 启动 Hyperf
-`php bin/hyperf.php start`
+4. 安装composer 安装 hyperf 并启动  
+`wget https://github.com/composer/composer/releases/download/1.9.0/composer.phar`  
+// 修改为可执行  
+`chmod u+x composer.phar`  
+// 复制到/usr/local/bin/ 这样就可以直接运行composer 命令  
+`mv composer.phar /usr/local/bin/composer`  
+// 修改仓库地址为阿里云  
+`composer config -g repo.packagist composer https://mirrors.aliyun.com/composer`  
+// 通过 Composer 安装 hyperf/hyperf-skeleton 项目  
+`composer create-project hyperf/hyperf-skeleton`  
+// 进入安装好的 Hyperf 项目目录  
+`cd hyperf-skeleton`  
+// 启动 Hyperf  
+`php bin/hyperf.php start`  
 
-5. 访问
+5. 访问  
 现在你就可以访问 http://ip:9051 来查看了
 
 ## 断点调试
