@@ -95,7 +95,7 @@ class AuthMiddleware implements MiddlewareInterface
         $appEnv = config('constants.APP_ENV');
         $appDebug = config('constants.APP_DEBUG');
         if($appEnv != 'prod' && $appDebug == 2){
-            if (empty($hbUser) || !isset($hbUser['id']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
+            if (empty($hbUser) || !isset($hbUser['uid']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
                 return [
                     'uid' => 1,
                     'name' => '测试用户1',
@@ -104,7 +104,7 @@ class AuthMiddleware implements MiddlewareInterface
                 ];
             }
         }else{
-            if (empty($hbUser) || !isset($hbUser['id']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
+            if (empty($hbUser) || !isset($hbUser['uid']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
                 return [];
             }
         }

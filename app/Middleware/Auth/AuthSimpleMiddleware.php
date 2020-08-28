@@ -87,7 +87,7 @@ class AuthSimpleMiddleware implements MiddlewareInterface
     public function postAuth(): array
     {
         $hbUser = $this->request->input('hb_user', []);
-        if (empty($hbUser) || !isset($hbUser['id']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
+        if (empty($hbUser) || !isset($hbUser['uid']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
             return [];
         }
         return $hbUser;
