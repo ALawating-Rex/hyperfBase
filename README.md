@@ -105,9 +105,11 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 也可以执行 composer test -- --filter=testUserInfo 只测试 testUserInfo 方法
 
 ## TODO List
-- 基于docker 安装 hyperf 的步骤
-- 完善单元测试，用户登录以及后续操作
-- 权限中间件
+- [x] 完善单元测试，用户登录以及后续操作
+- [ ] 基于docker 安装 hyperf 的步骤
+- [ ] 权限中间件
+- [ ] 处理异常
+
 
 ## 接口
 创建完数据库会初始化用户数据： 
