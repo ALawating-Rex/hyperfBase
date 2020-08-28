@@ -55,7 +55,7 @@ class AuthMiddleware implements MiddlewareInterface
         $isValidToken = false;
         if(empty($token) && $appEnv != 'prod' && $appDebug == 2){
             $hbUser = [
-                'id' => 1,
+                'uid' => 1,
                 'name' => '测试用户1',
                 'username' => 'testuser1',
                 'role' => 10,
@@ -97,7 +97,7 @@ class AuthMiddleware implements MiddlewareInterface
         if($appEnv != 'prod' && $appDebug == 2){
             if (empty($hbUser) || !isset($hbUser['id']) || !isset($hbUser['name']) || !isset($hbUser['role'])) {
                 return [
-                    'id' => 1,
+                    'uid' => 1,
                     'name' => '测试用户1',
                     'username' => 'testuser1',
                     'role' => 10,

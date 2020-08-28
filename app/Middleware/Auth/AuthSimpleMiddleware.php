@@ -54,14 +54,8 @@ class AuthSimpleMiddleware implements MiddlewareInterface
         $token = $this->request->getHeader('Authorization')[0] ?? '';
 
         $isValidToken = false;
-        if(empty($token) && $appEnv != 'prod' && $appDebug == 2){
-            $hbUser = [
-                'id' => 1,
-                'name' => '测试用户1',
-                'username' => 'testuser1',
-                'role' => 10,
-            ];
-
+        if(empty($token)){
+            $hbUser = [];
             return $hbUser;
         }else{
             try {
