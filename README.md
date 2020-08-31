@@ -108,7 +108,8 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 - [x] 完善单元测试，用户登录以及后续操作
 - [x] 基于docker 安装 hyperf 的步骤
 - [ ] 权限中间件
-- [ ] 处理异常
+- [x] 处理异常
+- [ ] service层抽象，供 RPC 或者 Controller 调用，解决这一层的异常处理问题
 
 
 ## 接口
@@ -122,4 +123,9 @@ curl 举例：
  --data-urlencode 'username=admin' \
  --data-urlencode 'password=aex.hyperfBase'`
 
+## 处理异常
+修改了 AppExceptionHandler 使得发生意外的时候返回的依然是 json  
+增加了 ApiExceptionHandler 用于处理自定义异常，比如你把某个函数封装到了 Model或Dao 层  
+Model或Dao 层不像 controller那样可以直接响应错误， 所以可以通过抛出异常的方式进行。  
+举例参考： app/Controller/Admin/User/UserController.php （虽然没有再封装一层，但是用法一致）
 
