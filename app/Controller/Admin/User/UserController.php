@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\User;
 
+use App\Exception\ApiException;
 use App\Model\User;
 use App\Util\Log;
 use App\Util\Account;
@@ -47,10 +48,12 @@ class UserController
         $status = $request->input('status',1);
         $role = $request->input('role',1);
 
-        // TODO 可以封装到 model 里
+        // TODO 可以封装到 model 里 ， 如果想再封装一层 Dao 那么可以把这里的逻辑放到 Dao层
         $userExist = User::where('phone',$phone)->orWhere('username',$username)->first(['id']);
         if(!empty($userExist)){
-            return Response::error(StatusCode::DATA_EXISTS);
+            throw new ApiException(StatusCode::DATA_EXISTS,' - 用户名或者手机号已经存在'); // 模拟函数封装到其它地方，直接抛出异常，添加自定义异常信息
+            //throw new ApiException(StatusCode::DATA_EXISTS); // 模拟函数封装到其它地方，直接抛出异常，异常信息为默认信息
+            //return Response::error(StatusCode::DATA_EXISTS); // 在 controller 里可以直接返回错误
         }
 
         $user = new User();
@@ -117,7 +120,9 @@ class UserController
           $query->where('phone',$phone)->orWhere('username',$username);
         })->first(['id']);
         if(!empty($userExist)){
-            return Response::error(StatusCode::DATA_EXISTS);
+            throw new ApiException(StatusCode::DATA_EXISTS,' - 用户名或者手机号已经存在'); // 模拟函数封装到其它地方，直接抛出异常，添加自定义异常信息
+            //throw new ApiException(StatusCode::DATA_EXISTS); // 模拟函数封装到其它地方，直接抛出异常，异常信息为默认信息
+            //return Response::error(StatusCode::DATA_EXISTS); // 在 controller 里可以直接返回错误
         }
 
         $user->username = $username;
