@@ -106,7 +106,7 @@ config/autoload/constants.php 里为一些配置变量做了说明，具体参�
 
 ## TODO List
 - [x] 完善单元测试，用户登录以及后续操作
-- [ ] 基于docker 安装 hyperf 的步骤
+- [x] 基于docker 安装 hyperf 的步骤
 - [ ] 权限中间件
 - [ ] 处理异常
 
