@@ -21,20 +21,15 @@ class Log
         $hbRequestId = $request->getAttribute('hb_request_id');
         $extra = array_merge($extra,['extra' => ['hb_request_id' => $hbRequestId]]);
 
-        $notLogLevel = config('constants.NOT_LOG_ARR');
-        $notLogLevelArr = explode(',',$notLogLevel);
-        if(in_array($level,$notLogLevelArr)){
-        }else{
-            $log = self::get($name,$key);
-            if(is_string($msg)){
-            }elseif (is_array($msg)){
-                $msg = json_encode($msg);
-            }elseif (is_object($msg)){
-                $msg = var_export($msg,true);
-            }else{}
+        $log = self::get($name,$key);
+        if(is_string($msg)){
+        }elseif (is_array($msg)){
+            $msg = json_encode($msg);
+        }elseif (is_object($msg)){
+            $msg = var_export($msg,true);
+        }else{}
 
-            $log->$level($msg,$extra);
-        }
+        $log->$level($msg,$extra);
     }
 
     public static function debug($msg, array $extra = [], $name = 'app', $key = 'default')
