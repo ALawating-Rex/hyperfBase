@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\User;
 
+use App\JsonRpc\Consumer\UserServiceConsumer;
 use App\Model\User;
 use App\Util\Log;
 use App\Util\Response;
@@ -27,6 +28,11 @@ class UserController
      * @var JWT
      */
     protected $jwt;
+    /**
+     * @Inject
+     * @var UserServiceConsumer
+     */
+    protected $userService;
 
     public function userLogin(RequestInterface $request, ResponseInterface $response)
     {
@@ -76,6 +82,17 @@ class UserController
         }
 
         $data = $objUser->toArray();
+        return Response::success($data);
+    }
+
+    public function testRpc(RequestInterface $request, ResponseInterface $response)
+    {
+        $userService = $this->userService;
+        $r = $userService->add(2,3);
+        var_dump($r);
+        $data = [
+            'res' => $r,
+        ];
         return Response::success($data);
     }
 }

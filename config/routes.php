@@ -45,6 +45,7 @@ Router::addGroup('',function (){
     Router::addGroup('/api',function (){
         Router::addGroup('/user',function (){
             Router::addRoute(['GET', 'POST'], '/info', 'App\Controller\Api\User\UserController@userInfo'); // 用户详情
+            Router::addRoute(['GET', 'POST'], '/testRpc', 'App\Controller\Api\User\UserController@testRpc'); // rpc 测试
         });
     });
 },['middleware' => [AuthMiddleware::class]]);
