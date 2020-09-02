@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model;
+use Donjan\Permission\Traits\HasRoles;
+
 /**
  * @property int $id 
  * @property string $name 
@@ -17,6 +19,7 @@ use Hyperf\DbConnection\Model\Model;
  */
 class User extends Model
 {
+    use HasRoles;
     /**
      * The table associated with the model.
      *

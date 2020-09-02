@@ -45,6 +45,8 @@ Router::addGroup('',function (){
     Router::addGroup('/api',function (){
         Router::addGroup('/user',function (){
             Router::addRoute(['GET', 'POST'], '/info', 'App\Controller\Api\User\UserController@userInfo'); // 用户详情
+            Router::addRoute(['GET', 'POST'], '/get/{id}', 'App\Controller\Api\User\UserController@userInfo'); // 用户详情
+            Router::addRoute(['GET', 'POST'], '/permission', 'App\Controller\Api\User\UserController@userPermission'); // 测试权限
         });
     });
 },['middleware' => [AuthMiddleware::class]]);
